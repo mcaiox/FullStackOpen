@@ -1,3 +1,4 @@
+const { response } = require("express");
 const express = require("express");
 const app = express();
 let notes = [
@@ -29,9 +30,19 @@ app.get("/api/notes", (request, response) => {
   response.json(notes); // In express we no longer have to transform data into JSON format with JSON.stringify because this transformation happens automatically.
 });
 
+app.get("/api/notes/:id", (request, response) => {
+  const id = Number(request.params.id);
+  const note = notes.find((note) => note.id === id);
+  if (note) {
+    response.json(note);
+  } else {
+    response.status(404).end();
+  }
+});
+
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server is running  on port ${PORT}`);
 });
 
-// Ended lesson  at We can execute different operations on resources. The operation to be executed is defined by the HTTP verb:
+// Ended lesson at the end of Deleting resources
