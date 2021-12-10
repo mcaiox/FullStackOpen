@@ -1,6 +1,9 @@
-const { response } = require("express");
+const { response, request } = require("express");
 const express = require("express");
 const app = express();
+
+app.use(express.json());
+
 let notes = [
   {
     id: 1,
@@ -40,9 +43,22 @@ app.get("/api/notes/:id", (request, response) => {
   }
 });
 
+app.delete("/api/notes/:id", (request, response) => {
+  const id = Number(request.params.id);
+  notes = notes.filter((note) => note.id !== id);
+  response.status(204).end();
+});
+
+app.post("/api/notes", (request, response) => {
+  const note = request.body;
+  console.log(note);
+  response.json(note);
+  notes.push(note);
+});
+
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server is running  on port ${PORT}`);
 });
 
-// Ended lesson at the end of Deleting resources
+// Ended lesson just before the start of Important sidenote, - Postman also allows users to save requests, but the situation can get quite chaotic especially when you're working on multiple unrelated projects.
