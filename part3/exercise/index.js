@@ -59,11 +59,27 @@ app.delete("/api/persons/:id", (request, response) => {
 });
 
 app.post("/api/persons/", (request, response) => {
-  const id = Math.floor(Math.random() * 1000) + (notes.length - 1);
   const body = request.body;
-  console.log(request.body);
+  if (!body.name) {
+    return response.status(400).json({
+      error: "name is missing",
+    });
+  }
+  const x = notes.filter((n) => n.name === body.name);
+  console.log(x.length);
+  // console.log({} == false);
+  if (x.length > 0) {
+    return response.status(409).json({
+      error: "name must be unique",
+    });
+  } else if (!body.number) {
+    return response.status(400).json({
+      error: "number is missing",
+    });
+  }
+  const id = notes.length > 0 ? Math.max(...notes.map((n) => n.id)) : 0;
   const note = {
-    id: id,
+    id: id + 1,
     name: body.name,
     number: body.number,
   };
