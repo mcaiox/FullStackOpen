@@ -1,6 +1,13 @@
 const express = require("express");
 const app = express();
 app.use(express.json()); // for parsing application/json
+const morgan = require("morgan");
+
+morgan.token("body", (req) => JSON.stringify(req.body));
+
+app.use(
+  morgan(":method :url :status :res[content-length] - :response-time ms :body")
+);
 let notes = [
   {
     id: 1,
@@ -66,8 +73,6 @@ app.post("/api/persons/", (request, response) => {
     });
   }
   const x = notes.filter((n) => n.name === body.name);
-  console.log(x.length);
-  // console.log({} == false);
   if (x.length > 0) {
     return response.status(409).json({
       error: "name must be unique",
