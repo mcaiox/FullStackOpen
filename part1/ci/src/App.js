@@ -1,6 +1,22 @@
 import React from "react";
 
-const Header = () => {
+const Header = (props) => {
+  return (
+    <>
+      <h1>{props.course}</h1>
+    </>
+  );
+};
+
+const Content = (props) => {
+  return (
+    <>
+      <p>Content</p>
+    </>
+  );
+};
+
+const Total = (Props) => {
   return (
     <>
       <p>Header</p>
@@ -19,8 +35,7 @@ const App = () => {
 
   return (
     <div>
-      <Header />
-      <h1>{course}</h1>
+      <Header course={course} />
       <p>
         {part1} {exercises1}
       </p>
