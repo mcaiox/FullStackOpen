@@ -83,3 +83,5 @@ arto.doAddition(1, 4);
 const referenceToAddition = arto.doAddition;
 
 referenceToAddition(10, 15);
+
+//Object methods and this completed and importance of binding this when losing scope to preserve "this"
