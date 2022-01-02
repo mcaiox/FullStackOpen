@@ -45,8 +45,8 @@ const sum = (p1, p2) => {
   return p1 + p2;
 };
 
-const result = sum(1, 5);
-console.log(result);
+// const result = sum(1, 5);
+// console.log(result);
 
 //you can use no parameters if the function has one parameter and position it RHS of = and LHS of =>
 
@@ -59,29 +59,44 @@ const squareWithBody = (p) => {
 
 const square = (p) => p * p;
 
-console.log(square(2));
+// console.log(square(2));
 
 const twotime = (p1, p2) => p1 * p2;
 
-console.log("twotime: " + twotime(2, 3));
+// console.log("twotime: " + twotime(2, 3));
 
 //Functions completed, onto excercises next lesson
 
-setTimeout(arto.greet.bind(arto), 1000);
+// setTimeout(arto.greet.bind(arto), 1000);
 
 const referenceToGreet = arto.greet.bind(arto);
-referenceToGreet();
+// referenceToGreet();
 arto.growOlder = function () {
   this.age += 1;
 };
 
-console.log(arto.age); // 35 is printed
-arto.growOlder();
-console.log(arto.age); // 36 is printed
+// console.log(arto.age); // 35 is printed
+// arto.growOlder();
+// console.log(arto.age); // 36 is printed
 
-arto.doAddition(1, 4);
-const referenceToAddition = arto.doAddition;
+// arto.doAddition(1, 4);
+// const referenceToAddition = arto.doAddition;
 
-referenceToAddition(10, 15);
+// referenceToAddition(10, 15);
 
 //Object methods and this completed and importance of binding this when losing scope to preserve "this"
+
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  greet() {
+    console.log("hello, my name is " + this.name);
+  }
+}
+
+const adam = new Person("Adam Ondra", 35);
+adam.greet();
+const janja = new Person("Janja Garnbret", 22);
+janja.greet();
