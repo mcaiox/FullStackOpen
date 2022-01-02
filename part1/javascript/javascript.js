@@ -100,3 +100,5 @@ const adam = new Person("Adam Ondra", 35);
 adam.greet();
 const janja = new Person("Janja Garnbret", 22);
 janja.greet();
+
+//Completed stateful component, need to start event handling next lesson
