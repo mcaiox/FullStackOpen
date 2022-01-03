@@ -102,3 +102,5 @@ const janja = new Person("Janja Garnbret", 22);
 janja.greet();
 
 //Completed stateful component, need to start event handling next lesson
+
+//Completed section c and need start section d - complex state
