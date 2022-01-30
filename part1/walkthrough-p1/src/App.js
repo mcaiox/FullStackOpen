@@ -63,4 +63,4 @@ const App = () => {
 };
 export default App;
 
-//Completed Conditional rendering, ready to start Old React section
+//Completed Event Handling Revisted and ready to start Function that returns a function
