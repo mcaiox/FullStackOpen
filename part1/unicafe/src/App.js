@@ -20,6 +20,8 @@ const App = () => {
       setNeutral(neutral + 1);
     } else if (type === "bad") {
       setBad(bad + 1);
+    } else {
+      console.error("Unknown type");
     }
   };
 
