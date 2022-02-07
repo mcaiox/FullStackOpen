@@ -5,6 +5,8 @@ const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
+  const Button = () => {};
+
   const Display = (props) => (
     <div>
       {props.text} {props.value}
