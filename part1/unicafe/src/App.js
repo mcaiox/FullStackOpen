@@ -1,40 +1,43 @@
 import React, { useState } from "react";
+const Button = (props) => (
+  <button onClick={props.handleClick}>{props.text}</button>
+);
+const Heading = (props) => <h1>{props.text}</h1>;
+
+const Display = (props) => (
+  <div>
+    {props.text} {props.value}
+  </div>
+);
 
 const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
-
-  const Button = () => {};
-
-  const Display = (props) => (
-    <div>
-      {props.text} {props.value}
-    </div>
-  );
-  const DisplayNeutral = (props) => <div>Neutral {props.value}</div>;
-  const DisplayBad = (props) => <div>Bad {props.value}</div>;
-
   const setTo = (type) => () => {
-    if (type === "good") {
-      setGood(good + 1);
-    } else if (type === "neutral") {
-      setNeutral(neutral + 1);
-    } else if (type === "bad") {
-      setBad(bad + 1);
-    } else {
-      console.error("Unknown type");
+    switch (type) {
+      case "good":
+        setGood(good + 1);
+        break;
+      case "neutral":
+        setNeutral(neutral + 1);
+        break;
+      case "bad":
+        setBad(bad + 1);
+        break;
+      default:
+        console.error("Unknown type for feedback button");
     }
   };
 
   return (
     <div>
-      <h2>Give Feedback</h2>
-      <button onClick={setTo("good")}>Good</button>
-      <button onClick={setTo("neutral")}>Neutral</button>
-      <button onClick={setTo("bad")}>Bad</button>
+      <Heading text="Give feedback" />
+      <Button handleClick={setTo("good")} text="good"></Button>
+      <Button handleClick={setTo("neutral")} text="neutral"></Button>
+      <Button handleClick={setTo("bad")} text="bad"></Button>
 
-      <h2>Statistics</h2>
+      <Heading text="Statistics" />
       <Display value={good} text="Good" />
       <Display value={neutral} text="Neutral" />
       <Display value={bad} text="Bad" />
@@ -43,7 +46,3 @@ const App = () => {
 };
 
 export default App;
-
-// Currently doing 1.6 unicafe step
-// Need to make custom components for buttons and display - also add functionality that makes they polymorphic
-//Look at previouse excerises and refactor code
