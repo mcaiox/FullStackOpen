@@ -4,16 +4,25 @@ const Button = (props) => (
 );
 const Heading = (props) => <h1>{props.text}</h1>;
 
-const Display = ({ text, value }) =>
-  text === "Positive" ? (
-    <div>
-      {text} {value} %
-    </div>
-  ) : (
-    <div>
-      {text} {value}
-    </div>
-  );
+const Statistics = ({ text, value, all }) => {
+  if (all > 0) {
+    if (text === "Positive") {
+      return (
+        <div>
+          {text} {value} %
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          {text} {value}
+        </div>
+      );
+    }
+  } else {
+    return <div>test</div>;
+  }
+};
 
 const App = () => {
   const [good, setGood] = useState(0);
@@ -49,12 +58,12 @@ const App = () => {
       <Button handleClick={setTo("bad")} text="bad"></Button>
 
       <Heading text="Statistics" />
-      <Display value={good} text="Good" />
-      <Display value={neutral} text="Neutral" />
-      <Display value={bad} text="Bad" />
-      <Display value={all} text="All" />
-      <Display value={avg} text="Average" />
-      <Display value={positive} text="Positive" />
+      <Statistics value={good} text="Good" all={all} />
+      <Statistics value={neutral} text="Neutral" />
+      <Statistics value={bad} text="Bad" />
+      <Statistics value={all} text="All" />
+      <Statistics value={avg} text="Average" />
+      <Statistics value={positive} text="Positive" />
     </div>
   );
 };
