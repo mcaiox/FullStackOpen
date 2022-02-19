@@ -4,14 +4,14 @@ const Button = (props) => (
 );
 const Heading = (props) => <h1>{props.text}</h1>;
 
-const Display = (props) =>
-  props.text === "Positive" ? (
+const Display = ({ text, value }) =>
+  text === "Positive" ? (
     <div>
-      {props.text} {props.value} %
+      {text} {value} %
     </div>
   ) : (
     <div>
-      {props.text} {props.value}
+      {text} {value}
     </div>
   );
 
