@@ -1,27 +1,42 @@
 import React, { useState } from "react";
-const Button = (props) => (
-  <button onClick={props.handleClick}>{props.text}</button>
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>{text}</button>
 );
-const Heading = (props) => <h1>{props.text}</h1>;
+const Heading = ({ text }) => <h1>{text}</h1>;
 
-const Statistics = ({ text, value, all }) => {
-  if (all > 0) {
-    if (text === "Positive") {
-      return (
-        <div>
-          {text} {value} %
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          {text} {value}
-        </div>
-      );
-    }
+const StatisticLine = ({ text, value }) => {
+  if (text === "Positive") {
+    return (
+      <table>
+        <tr>
+          <td>{text} </td>
+          <td>{value} %</td>
+        </tr>
+      </table>
+    );
   } else {
-    return <div>test</div>;
+    return (
+      <table>
+        <tr>
+          <td>{text} </td>
+          <td>{value} </td>
+        </tr>
+      </table>
+    );
   }
+};
+
+const Statistics = ({ good, neutral, bad, all, avg, positive }) => {
+  return (
+    <div>
+      <StatisticLine text="Good" value={good} />
+      <StatisticLine text="Neutral" value={neutral} />
+      <StatisticLine text="Bad" value={bad} />
+      <StatisticLine text="All" value={all} />
+      <StatisticLine text="Average" value={avg} />
+      <StatisticLine text="Positive" value={positive} />
+    </div>
+  );
 };
 
 const App = () => {
@@ -50,6 +65,7 @@ const App = () => {
   };
   const avg = all > 0 ? ((good + (bad > 0 ? bad * -1 : 0)) / all) * 100 : 0;
   const positive = good > 0 ? (good / all) * 100 : 0;
+  const statsProps = { good, neutral, bad, all, avg, positive };
   return (
     <div>
       <Heading text="Give feedback" />
@@ -58,12 +74,13 @@ const App = () => {
       <Button handleClick={setTo("bad")} text="bad"></Button>
 
       <Heading text="Statistics" />
-      <Statistics value={good} text="Good" all={all} />
-      <Statistics value={neutral} text="Neutral" />
-      <Statistics value={bad} text="Bad" />
-      <Statistics value={all} text="All" />
-      <Statistics value={avg} text="Average" />
-      <Statistics value={positive} text="Positive" />
+      {all > 0 ? (
+        <>
+          <Statistics {...statsProps} />
+        </>
+      ) : (
+        <p>No feedback given</p>
+      )}
     </div>
   );
 };
