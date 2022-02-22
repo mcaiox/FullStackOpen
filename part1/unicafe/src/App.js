@@ -7,21 +7,17 @@ const Heading = ({ text }) => <h1>{text}</h1>;
 const StatisticLine = ({ text, value }) => {
   if (text === "Positive") {
     return (
-      <table>
-        <tr>
-          <td>{text} </td>
-          <td>{value} %</td>
-        </tr>
-      </table>
+      <tr>
+        <td>{text} </td>
+        <td>{value} %</td>
+      </tr>
     );
   } else {
     return (
-      <table>
-        <tr>
-          <td>{text} </td>
-          <td>{value} </td>
-        </tr>
-      </table>
+      <tr>
+        <td>{text} </td>
+        <td>{value} </td>
+      </tr>
     );
   }
 };
@@ -29,12 +25,16 @@ const StatisticLine = ({ text, value }) => {
 const Statistics = ({ good, neutral, bad, all, avg, positive }) => {
   return (
     <div>
-      <StatisticLine text="Good" value={good} />
-      <StatisticLine text="Neutral" value={neutral} />
-      <StatisticLine text="Bad" value={bad} />
-      <StatisticLine text="All" value={all} />
-      <StatisticLine text="Average" value={avg} />
-      <StatisticLine text="Positive" value={positive} />
+      <table>
+        <tbody>
+          <StatisticLine text="Good" value={good} />
+          <StatisticLine text="Neutral" value={neutral} />
+          <StatisticLine text="Bad" value={bad} />
+          <StatisticLine text="All" value={all} />
+          <StatisticLine text="Average" value={avg} />
+          <StatisticLine text="Positive" value={positive} />
+        </tbody>
+      </table>
     </div>
   );
 };
