@@ -4,6 +4,12 @@ const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}> {text}</button>
 );
 
+const Display = ({ heading }) => (
+  <div>
+    <h3>{heading}</h3>
+  </div>
+);
+
 const App = () => {
   const anecdotes = [
     "If it hurts, do it more often",
@@ -16,21 +22,17 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
-  const [points, setPoints] = new Array(anecdotes.length).fill(0);
+  const [points, setPoints] = useState(new Array(anecdotes.length).fill(0));
   const updateVotes = () => {
-    const copy = [...points];
+    let copy = points;
     copy[selected] += 1;
     setPoints(copy);
-
-    setPoints(copy);
-    console.log(points[selected]);
     console.log(points);
   };
-
   return (
     <div>
+      <Display heading="Anectdote of the day" />
       <div>{anecdotes[selected]}</div>
-      <div>{}</div>
       <Button handleClick={updateVotes} text="vote"></Button>
       <Button
         handleClick={() => {
@@ -38,6 +40,7 @@ const App = () => {
         }}
         text="next anecdote"
       ></Button>
+      <Display heading="Anectdote with most votes" />
     </div>
   );
 };
