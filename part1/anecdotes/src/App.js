@@ -9,7 +9,9 @@ const Display = ({ heading }) => (
     <h3>{heading}</h3>
   </div>
 );
-
+const Stat = ({ info, type }) => {
+  return type === "has" ? <p>has {info} votes</p> : <p>{info}</p>;
+};
 const App = () => {
   const anecdotes = [
     "If it hurts, do it more often",
@@ -24,23 +26,35 @@ const App = () => {
   const [selected, setSelected] = useState(0);
   const [points, setPoints] = useState(new Array(anecdotes.length).fill(0));
   const updateVotes = () => {
-    let copy = points;
+    const copy = [...points];
     copy[selected] += 1;
     setPoints(copy);
     console.log(points);
   };
+  const getRandomIndex = (len) => {
+    return Math.floor(Math.random() * len);
+  };
+
+  const setNewRandomAnecdote = () => {
+    let randomAnecdoteIndex;
+
+    do {
+      randomAnecdoteIndex = getRandomIndex(anecdotes.length);
+    } while (randomAnecdoteIndex === selected);
+
+    setSelected(randomAnecdoteIndex);
+  };
+
   return (
     <div>
       <Display heading="Anectdote of the day" />
-      <div>{anecdotes[selected]}</div>
+      <Stat info={anecdotes[selected]} />
+      <Stat info={points[selected]} type="has" />
       <Button handleClick={updateVotes} text="vote"></Button>
-      <Button
-        handleClick={() => {
-          setSelected(Math.floor(Math.random() * anecdotes.length));
-        }}
-        text="next anecdote"
-      ></Button>
+      <Button handleClick={setNewRandomAnecdote} text="next anecdote"></Button>
       <Display heading="Anectdote with most votes" />
+      <div>{anecdotes[points.indexOf(Math.max(...points))]}</div>
+      <div>Which has {Math.max(...points)} votes</div>
     </div>
   );
 };
