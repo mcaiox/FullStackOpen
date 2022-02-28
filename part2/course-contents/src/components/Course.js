@@ -1,12 +1,12 @@
 import Header from "./Header";
 import Content from "./Content";
-
-
-const Course = ({ course }) => {
+import Sum from "./Sum";
+const Course = ({ courses }) => {
   return (
     <div>
-      <Header course={course.name} />
-      <Content parts={course.parts} />
+      <Header course={courses.name} />
+      <Content parts={courses.parts} />
+      <Sum sum={courses.parts.map((course) => course.exercises)} />
     </div>
   );
 };
