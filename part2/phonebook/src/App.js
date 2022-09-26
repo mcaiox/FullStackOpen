@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Filter from "./Filter";
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -9,19 +10,19 @@ const App = () => {
   ]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
-  const [showAll, setShowAll] = useState(false);
-  const [newFilter, setNewFilter] = useState("");
+  const [filter, setFilter] = useState("");
+  const [view, setView] = useState(true);
 
   const addPerson = (event) => {
     event.preventDefault();
-    console.log(persons.some((person) => person.name === newName));
-
     if (
       persons.some(
         (person) => person.name.toLowerCase() === newName.toLowerCase()
       )
     ) {
       alert(`${newName} is already added to phonebook`);
+    } else if (newName.length === 0) {
+      alert(`Cannot add an empty entry to phonebook`);
     } else {
       console.log("creating new person object");
       const personObject = {
@@ -42,19 +43,21 @@ const App = () => {
     setNewNumber(event.target.value);
   };
   const handleFilterChange = (event) => {
-    setNewFilter(event.target.value);
+    setView(false);
+    setFilter(event.target.value);
   };
 
-  const personsToShow = showAll
+  const personsToShow = view
     ? persons
-    : persons.filter((person) => person.name.includes(newFilter.toLowerCase()));
+    : persons.filter((person) => person.name.includes(filter.toLowerCase()));
+
   return (
     <div>
       <h2>Phonebook</h2>
       <form>
         <div>
           filter shown with
-          <input value={newFilter} onChange={handleFilterChange} />
+          <input value={filter} onChange={handleFilterChange} />
         </div>
       </form>
       <h2>add a new</h2>
@@ -70,13 +73,7 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      <>
-        {personsToShow.map((person) => (
-          <li key={person.name}>
-            {person.name} {person.number}
-          </li>
-        ))}
-      </>
+      <Filter personsToShow={personsToShow} />
       <div>debug: {newName + "\t" + newNumber}</div>
     </div>
   );
