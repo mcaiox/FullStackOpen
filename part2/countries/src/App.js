@@ -15,29 +15,28 @@ function App() {
   const titleCase = (str) => {
     let splitStr = str.toLowerCase().split(" ");
     for (let i = 0; i < splitStr.length; i++) {
-      // You do not need to check if i is larger than splitStr length, as your for does that for you
-      // Assign it back to the array
       splitStr[i] =
         splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
     }
-    // Directly return the joined string
     return splitStr.join(" ");
   };
   const handleFilterValueChange = (event) => {
-    console.log(event.target.value);
-
     let filterValue = titleCase(event.target.value);
-    console.log(filterValue);
+    const countriesResult = countries.filter((country) =>
+      country.name.common.includes(filterValue)
+    );
+    if (countriesResult.length < 10) {
+      setView(true);
+    } else {
+      setView(false);
+    }
 
-    setView(false);
     setFilterValue(filterValue);
   };
 
-  // console.log("countries", countries[1]?.name?.common);
-
   const countriesToShow = view
-    ? countries
-    : countries.filter((country) => country.name.common.includes(filterValue));
+    ? countries.filter((country) => country.name.common.includes(filterValue))
+    : [];
 
   return (
     <div className="App">
@@ -46,7 +45,7 @@ function App() {
         filter={filterValue}
         handleFilterChange={handleFilterValueChange}
       />
-      <Countries countriesToShow={countriesToShow} />
+      <Countries countriesToShow={countriesToShow} view={view} />
     </div>
   );
 }
