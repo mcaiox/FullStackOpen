@@ -5,7 +5,7 @@ import Countries from "./countries";
 function App() {
   const [countries, setCountries] = useState([]);
   const [filterValue, setFilterValue] = useState("");
-  const [view, setView] = useState(true);
+  const [view, setView] = useState("<10");
   const hook = () => {
     axios.get("https://restcountries.com/v3.1/all").then((response) => {
       setCountries(response.data);
@@ -25,18 +25,23 @@ function App() {
     const countriesResult = countries.filter((country) =>
       country.name.common.includes(filterValue)
     );
-    if (countriesResult.length < 10) {
-      setView(true);
+    if (countriesResult.length < 10 && countriesResult.length > 1) {
+      setView("<10");
+    } else if (countriesResult.length === 1) {
+      setView("1");
     } else {
-      setView(false);
+      setView(">10");
     }
 
     setFilterValue(filterValue);
   };
 
-  const countriesToShow = view
-    ? countries.filter((country) => country.name.common.includes(filterValue))
-    : [];
+  const countriesToShow =
+    view === "<10"
+      ? countries.filter((country) => country.name.common.includes(filterValue))
+      : view === "1"
+      ? countries.filter((country) => country.name.common.includes(filterValue))
+      : [];
 
   return (
     <div className="App">
