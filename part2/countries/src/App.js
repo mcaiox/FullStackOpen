@@ -12,28 +12,23 @@ function App() {
     });
   };
   useEffect(hook, []);
-  const titleCase = (str) => {
-    let splitStr = str.toLowerCase().split(" ");
-    for (let i = 0; i < splitStr.length; i++) {
-      splitStr[i] =
-        splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
-    }
-    return splitStr.join(" ");
-  };
   const handleFilterValueChange = (event) => {
-    let filterValue = titleCase(event.target.value);
-    const countriesResult = countries.filter((country) =>
-      country.name.common.includes(filterValue)
-    );
-    if (countriesResult.length < 10 && countriesResult.length > 1) {
-      setView("<10");
-    } else if (countriesResult.length === 1) {
-      setView("1");
-    } else {
-      setView(">10");
-    }
+    let filterValue = event.target.value;
+    if (filterValue) {
+      const regex = new RegExp(filterValue, "i");
+      const countriesResult = countries.filter((country) =>
+        country.name.common.match(regex)
+      );
+      if (countriesResult.length < 10 && countriesResult.length > 1) {
+        setView("<10");
+      } else if (countriesResult.length === 1) {
+        setView("1");
+      } else {
+        setView(">10");
+      }
 
-    setFilterValue(filterValue);
+      setFilterValue(filterValue);
+    }
   };
 
   const countriesToShow =
