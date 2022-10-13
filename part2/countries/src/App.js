@@ -19,7 +19,7 @@ function App() {
       const countriesResult = countries.filter((country) =>
         country.name.common.match(regex)
       );
-      console.log("countriesResult: ", countriesResult);
+      console.log("countriesResults: ", countriesResult);
       if (countriesResult.length < 10 && countriesResult.length > 1) {
         setView("<10");
       } else if (countriesResult.length === 1) {
