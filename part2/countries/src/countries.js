@@ -1,18 +1,19 @@
-const Countries = ({ countriesToShow, view }) => {
-  if (view === "<10") {
+const Countries = ({ countries }) => {
+  console.log(countries);
+  if (countries.length < 10 && countries.length !== 1) {
     return (
       <div>
-        {countriesToShow.map((country, index) => (
+        {countries.map((country, index) => (
           <li key={index}>
             {country.name.common} {country.flag}
           </li>
         ))}
       </div>
     );
-  } else if (view === "1") {
+  } else if (countries.length === 1) {
     return (
       <div>
-        {countriesToShow.map((country) => (
+        {countries.map((country) => (
           <div>
             <h1>{country.name.common}</h1>
             <br />
