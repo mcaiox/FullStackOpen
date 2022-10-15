@@ -1,11 +1,11 @@
-const Countries = ({ countries }) => {
-  console.log(countries);
+import Country from "./country";
+const Countries = ({ countries, handleClick }) => {
   if (countries.length < 10 && countries.length !== 1) {
     return (
       <div>
         {countries.map((country, index) => (
           <li key={index}>
-            {country.name.common} {country.flag}
+            <Country country={country} handleClick={handleClick} />
           </li>
         ))}
       </div>
@@ -13,25 +13,27 @@ const Countries = ({ countries }) => {
   } else if (countries.length === 1) {
     return (
       <div>
-        {countries.map((country) => (
-          <div>
-            <h1>{country.name.common}</h1>
-            <br />
-            <p>Capital: {country.capital[0]}</p>
-            <p>Area {country.area}</p>
-            <h6>Languages:</h6>
-            <ul>
-              {Object.keys(country.languages).map((key, index) => {
-                return (
-                  <li key={index}>
-                    <p>{country.languages[key]}</p>
-                  </li>
-                );
-              })}
-            </ul>
+        {countries.map((country, index) => (
+          <li key={index}>
+            <div>
+              <h1>{country.name.common}</h1>
+              <br />
+              <p>Capital: {country.capital[0]}</p>
+              <p>Area {country.area}</p>
+              <h6>Languages:</h6>
+              <ul>
+                {Object.keys(country.languages).map((key, index) => {
+                  return (
+                    <li key={index}>
+                      <p>{country.languages[key]}</p>
+                    </li>
+                  );
+                })}
+              </ul>
 
-            <img src={country.flags.png} alt={country.flag} />
-          </div>
+              <img src={country.flags.png} alt={country.flag} />
+            </div>
+          </li>
         ))}
       </div>
     );

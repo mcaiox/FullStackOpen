@@ -22,6 +22,10 @@ function App() {
     setFilterValue(filterValue);
   };
 
+  const handleClick = (countryClicked) => {
+    setFilterValue(countryClicked);
+  };
+
   return (
     <div className="App">
       <h2>Countries</h2>
@@ -29,7 +33,7 @@ function App() {
         filter={filterValue}
         handleFilterChange={handleFilterValueChange}
       />
-      <Countries countries={countries} />
+      <Countries countries={countries} handleClick={handleClick} />
     </div>
   );
 }
