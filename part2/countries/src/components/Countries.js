@@ -1,4 +1,4 @@
-import Country from "./country";
+import Country from "./Country";
 const Countries = ({ countries, handleClick }) => {
   if (countries.length < 10 && countries.length !== 1) {
     return (

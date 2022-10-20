@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Filter from "./filter";
-import Countries from "./countries";
+import Filter from "./components/Filter";
+import Countries from "./components/Countries";
 function App() {
   const [countries, setCountries] = useState([]);
+  const [weather, setWeather] = useState([]);
   const [filterValue, setFilterValue] = useState("");
 
   useEffect(() => {
@@ -16,6 +17,20 @@ function App() {
       }
     });
   }, [filterValue]);
+  const lat = 51.5002;
+  const long = -0.1262;
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&hourly=temperature_2m`
+      )
+      .then((response) => {
+        setWeather(response.data);
+      });
+  }, []);
+
+  console.log(weather);
 
   const handleFilterValueChange = (event) => {
     const filterValue = event.target.value;
@@ -33,7 +48,11 @@ function App() {
         filter={filterValue}
         handleFilterChange={handleFilterValueChange}
       />
-      <Countries countries={countries} handleClick={handleClick} />
+      <Countries
+        countries={countries}
+        weather={weather}
+        handleClick={handleClick}
+      />
     </div>
   );
 }
