@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Filter from "./components/Filter";
 import Countries from "./components/Countries";
+
 function App() {
+  const [filteredCountries, setFilteredCountries] = useState([]);
   const [countries, setCountries] = useState([]);
-  const [weather, setWeather] = useState([]);
   const [filterValue, setFilterValue] = useState("");
 
   useEffect(() => {
@@ -13,24 +14,27 @@ function App() {
         const filteredResult = response.data.filter((country) =>
           country.name.common.toLowerCase().includes(filterValue.toLowerCase())
         );
-        setCountries(filteredResult);
+        setFilteredCountries(filteredResult);
+      } else {
+        setCountries(response.data);
       }
     });
   }, [filterValue]);
-  const lat = 51.5002;
-  const long = -0.1262;
 
-  useEffect(() => {
-    axios
-      .get(
-        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&hourly=temperature_2m`
-      )
-      .then((response) => {
-        setWeather(response.data);
-      });
-  }, []);
+  // const lat = 51.5002;
+  // const long = -0.1262;
 
-  console.log(weather);
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&hourly=temperature_2m`
+  //     )
+  //     .then((response) => {
+  //       setWeather(response.data);
+  //     });
+  // }, []);
+
+  // console.log(weather);
 
   const handleFilterValueChange = (event) => {
     const filterValue = event.target.value;
@@ -49,9 +53,8 @@ function App() {
         handleFilterChange={handleFilterValueChange}
       />
       <Countries
-        countries={countries}
-        weather={weather}
-        handleClick={handleClick}
+        countries={filteredCountries}
+        setCountries={setFilteredCountries}
       />
     </div>
   );

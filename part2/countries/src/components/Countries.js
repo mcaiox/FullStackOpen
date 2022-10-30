@@ -1,40 +1,29 @@
 import Country from "./Country";
-const Countries = ({ countries, handleClick }) => {
+
+const Countries = ({ countries, setCountries }) => {
   if (countries.length < 10 && countries.length !== 1) {
     return (
+      //       <ul>
+      //   {countries.map((country, i) =>
+      //     <li key={i}> {country.name} <button onClick={() => setCountries([country])}>show</button></li>
+      //   )}
+      // </ul>
       <div>
-        {countries.map((country, index) => (
-          <li key={index}>
-            <Country country={country} handleClick={handleClick} />
-          </li>
-        ))}
+        <ul>
+          {countries.map((country, index) => (
+            <li key={index}>
+              {" "}
+              {country.name}{" "}
+              <button onClick={() => setCountries([country])}>show</button>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   } else if (countries.length === 1) {
     return (
       <div>
-        {countries.map((country, index) => (
-          <li key={index}>
-            <div>
-              <h1>{country.name.common}</h1>
-              <br />
-              <p>Capital: {country.capital[0]}</p>
-              <p>Area {country.area}</p>
-              <h6>Languages:</h6>
-              <ul>
-                {Object.keys(country.languages).map((key, index) => {
-                  return (
-                    <li key={index}>
-                      <p>{country.languages[key]}</p>
-                    </li>
-                  );
-                })}
-              </ul>
-
-              <img src={country.flags.png} alt={country.flag} />
-            </div>
-          </li>
-        ))}
+        <Country country={countries[0]} />
       </div>
     );
   } else {
