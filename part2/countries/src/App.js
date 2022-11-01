@@ -10,51 +10,35 @@ function App() {
 
   useEffect(() => {
     axios.get("https://restcountries.com/v3.1/all").then((response) => {
-      if (filterValue !== "") {
-        const filteredResult = response.data.filter((country) =>
-          country.name.common.toLowerCase().includes(filterValue.toLowerCase())
-        );
-        setFilteredCountries(filteredResult);
-      } else {
-        setCountries(response.data);
-      }
+      setCountries(response.data);
     });
-  }, [filterValue]);
-
-  // const lat = 51.5002;
-  // const long = -0.1262;
-
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&hourly=temperature_2m`
-  //     )
-  //     .then((response) => {
-  //       setWeather(response.data);
-  //     });
-  // }, []);
-
-  // console.log(weather);
+  }, []);
 
   const handleFilterValueChange = (event) => {
     const filterValue = event.target.value;
     setFilterValue(filterValue);
+    if (filterValue) {
+      const regex = new RegExp(filterValue, "i");
+      const filteredCountries = () =>
+        countries.filter((country) => country.name.common.match(regex));
+      setFilteredCountries(filteredCountries);
+    }
   };
 
-  const handleClick = (countryClicked) => {
-    setFilterValue(countryClicked);
-  };
+  // const handleClick = (countryClicked) => {
+  //   setFilterValue(countryClicked);
+  // };
 
   return (
     <div className="App">
       <h2>Countries</h2>
       <Filter
-        filter={filterValue}
+        filterValue={filterValue}
         handleFilterChange={handleFilterValueChange}
       />
       <Countries
-        countries={filteredCountries}
-        setCountries={setFilteredCountries}
+        filteredCountries={filteredCountries}
+        setFilteredCountries={setFilteredCountries}
       />
     </div>
   );

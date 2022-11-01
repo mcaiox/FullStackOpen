@@ -1,29 +1,25 @@
 import Country from "./Country";
 
-const Countries = ({ countries, setCountries }) => {
-  if (countries.length < 10 && countries.length !== 1) {
+const Countries = ({ filteredCountries, setFilteredCountries }) => {
+  if (filteredCountries.length > 1) console.log(filteredCountries);
+  if (filteredCountries.length < 10 && filteredCountries.length !== 1) {
     return (
-      //       <ul>
-      //   {countries.map((country, i) =>
-      //     <li key={i}> {country.name} <button onClick={() => setCountries([country])}>show</button></li>
-      //   )}
-      // </ul>
-      <div>
-        <ul>
-          {countries.map((country, index) => (
-            <li key={index}>
-              {" "}
-              {country.name}{" "}
-              <button onClick={() => setCountries([country])}>show</button>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul>
+        {filteredCountries.map((country, index) => (
+          <li key={index}>
+            {" "}
+            {country.name.common}{" "}
+            <button onClick={() => setFilteredCountries([country])}>
+              show
+            </button>
+          </li>
+        ))}
+      </ul>
     );
-  } else if (countries.length === 1) {
+  } else if (filteredCountries.length === 1) {
     return (
       <div>
-        <Country country={countries[0]} />
+        <Country country={filteredCountries[0]} />
       </div>
     );
   } else {
