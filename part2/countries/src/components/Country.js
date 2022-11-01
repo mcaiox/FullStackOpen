@@ -21,6 +21,13 @@ const Country = ({ country }) => {
         Latitude/Longitude: {country.latlng[0]}/{country.latlng[1]}
       </p>
       <p>Population: {country.population}</p>
+      <h2>Languages</h2>
+      <ul>
+        {Object.values(country.languages).map((language, key) => (
+          <li key={key}>{language}</li>
+        ))}
+      </ul>
+      <img src={country.flags.png} alt="Country flag"></img>
     </>
   );
 };
