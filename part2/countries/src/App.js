@@ -25,10 +25,6 @@ function App() {
     }
   };
 
-  // const handleClick = (countryClicked) => {
-  //   setFilterValue(countryClicked);
-  // };
-
   return (
     <div className="App">
       <h2>Countries</h2>
