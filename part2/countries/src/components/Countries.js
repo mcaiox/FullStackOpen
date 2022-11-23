@@ -1,7 +1,6 @@
 import Country from "./Country";
 
 const Countries = ({ filteredCountries, setFilteredCountries }) => {
-  if (filteredCountries.length > 1) console.log(filteredCountries);
   if (filteredCountries.length < 10 && filteredCountries.length !== 1) {
     return (
       <ul>
